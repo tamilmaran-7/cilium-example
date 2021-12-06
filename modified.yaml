@@ -1,0 +1,23 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: modified
+  namespace: multiubuntu
+spec:
+  endpointSelector:
+    matchLabels:
+      container: ubuntu-1
+  egress:
+    - toCIDR:
+        - 10.4.0.130/32
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: ANY
+  ingress:
+    - fromCIDR:
+        - 10.4.0.130/32
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: ANY
