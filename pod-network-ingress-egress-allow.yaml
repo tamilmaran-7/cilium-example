@@ -1,0 +1,27 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: pod-network-ingress-egress-allow
+  namespace: multiubuntu
+spec:
+  endpointSelector:
+    matchLabels:
+      container: ubuntu-1
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            container: ubuntu-2
+      toPorts:
+        - ports:
+            - port: "443"
+        - ports:
+            - port: "80"
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            container: ubuntu-2
+      toPorts:
+        - ports:
+            - port: "443"
+        - ports:
+            - port: "80"
